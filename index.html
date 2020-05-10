@@ -12,6 +12,8 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
   <script src="lib/gltf-validator.js"></script>
   <script src="bundle.js?v=r105"></script>
+  <script src="draco_decoder.js"></script>
+  <script src="draco_encoder.js"></script>
   <script src="compress.js"></script>
 </head>
 <body>
@@ -25,7 +27,6 @@
     <a class="item" id="compare-btn" href="#">
       Compare (c)
     </a>
-	<div class="item-tool"><button class="item item-flex"><span class="icon"><img src="assets/icons/draco-56.png" alt="Draco"></span><span class="title"><span class="name">Draco Compressor</span><span class="version">⚠ Experimental ⚠</span></span></button><div class="tools-gui"><div class="dg main" style="width: 300px;"><ul><li class="cr number has-slider"><div><span class="property-name">compressionLevel</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 90%;"></div></div></div></div></li><li class="folder"><div class="dg"><ul class="closed"><li class="title">quantization</li><li class="cr number has-slider"><div><span class="property-name">position</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 41.9355%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">texcoord</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 35.4839%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">normal</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">color</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">generic</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li></ul></div></li><li class="cr string"><div><span class="property-name">method</span><div class="c"><select><option value="edgebreaker">edgebreaker</option><option value="sequential">sequential</option></select></div></div></li><li class="cr boolean"><div><span class="property-name">morphTargets</span><div class="c"><input type="checkbox" checked="checked"></div></div></li><li class="cr boolean"><div><span class="property-name">trace</span><div class="c"><input type="checkbox"></div></div></li><li class="cr boolean"><div><span class="property-name">currentSpec</span><div class="c"><input type="checkbox"></div></div></li></ul><div class="close-button close-bottom" style="width: 300px;">Close Controls</div></div></div></div>
     <span class="flex-grow"></span>
     <button id="download-btn" class="item" style="display: none;">⬇&nbsp;&nbsp;&nbsp;Download</button>
   </header>
