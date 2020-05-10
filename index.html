@@ -1,139 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-  <title>three.js webgl - loaders - Draco loader</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <style>
-    body {
-      font-family: Monospace;
-      background-color: #000;
-      color: #fff;
-      margin: 0px;
-      overflow: hidden;
-    }
-    #info {
-      color: #fff;
-      position: absolute;
-      top: 10px;
-      width: 100%;
-      text-align: center;
-      z-index: 100;
-      display: block;
-    }
-    #info a,
-    .button {
-      color: #f00;
-      font-weight: bold;
-      text-decoration: underline;
-      cursor: pointer
-    }
-  </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>glTF Compressor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="author" content="Don McCurdy">
+  <meta name="description" content="Drag-and-drop compression tool for glTF 2.0 3D models.">
+  <link rel="canonical" href="https://gltf-viewer.donmccurdy.com/">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
+  <script src="lib/gltf-validator.js"></script>
+  <script src="bundle.js?v=r105"></script>
+  <script src="assets/draco/draco_decoder.js"></script>
+  <script src="assets/draco/draco_encoder.js"></script>
+  <script src="compress.js"></script>
 </head>
-
 <body>
-  <div id="container"></div>
-  <div id="info">
-    <a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
-    <a href="https://github.com/google/draco" target="_blank" rel="noopener">DRACO</a> loader
-  </div>
-        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/build/three.min.js"></script>
-  <script src="DRACOLoader.js"></script>
-  <script src="geometry_helper.js"></script>
-  <script>
+  <header>
+	  <div class="navbar">
+			<h1><a href="/">glTF Compressor</a></h1>
+			<span class="separator layout-md"> | </span>
+			<a class="item" target="_blank" href="https://github.com/donmccurdy/three-gltf-viewer">
+			  source
+			</a>
 
-    var camera, scene, renderer;
+			<a class="item" id="compare-btn" href="#">
+			  Compare (c)
+			</a>
+			
+			<div class="item-tool"><button class="item item-flex"><span class="icon"><img src="assets/icons/draco-56.png" alt="Draco"></span><span class="title"><span class="name">Draco Compressor</span><span class="version">⚠ Experimental ⚠</span></span></button><div class="tools-gui"><div class="dg main" style="width: 300px;"><ul><li class="cr number has-slider"><div><span class="property-name">compressionLevel</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 70%;"></div></div></div></div></li><li class="folder"><div class="dg"><ul class="closed"><li class="title">quantization</li><li class="cr number has-slider"><div><span class="property-name">position</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 41.9355%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">texcoord</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 35.4839%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">normal</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">color</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li><li class="cr number has-slider"><div><span class="property-name">generic</span><div class="c"><div><input type="text"></div><div class="slider"><div class="slider-fg" style="width: 22.5806%;"></div></div></div></div></li></ul></div></li><li class="cr string"><div><span class="property-name">method</span><div class="c"><select><option value="edgebreaker">edgebreaker</option><option value="sequential">sequential</option></select></div></div></li><li class="cr boolean"><div><span class="property-name">morphTargets</span><div class="c"><input type="checkbox" checked="checked"></div></div></li><li class="cr boolean"><div><span class="property-name">trace</span><div class="c"><input type="checkbox"></div></div></li><li class="cr boolean"><div><span class="property-name">currentSpec</span><div class="c"><input type="checkbox"></div></div></li></ul><div class="close-button close-bottom" style="width: 300px;">Close Controls</div></div></div></div>
+			
+			<span class="flex-grow"></span>
+		</div>
+  </header>
+  <main class="wrap">
+    <div class="dropzone">
+      <div class="placeholder">
+        <p>Drag glTF 2.0 file or folder here</p>
+      </div>
 
-    // Global Draco decoder type.
-    var dracoDecoderType = {};
-    dracoDecoderType.type = 'js';
-    var dracoLoader = new THREE.DRACOLoader('../', dracoDecoderType);
+      <div class="upload-btn">
+        <input type="file" name="file-input[]" id="file-input" multiple="">
+        <label for="file-input">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
+          <span>Upload</span>
+        </label>
+      </div>
+    </div>
 
-    init();
-    animate();
-
-    function init() {
-
-      camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.1, 15 );
-      camera.position.set( 3, 0.25, 3 );
-
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color( 0x443333 );
-      scene.fog = new THREE.Fog( 0x443333, 1, 4 );
-
-      // Ground
-      var plane = new THREE.Mesh(
-        new THREE.PlaneBufferGeometry( 8, 8 ),
-        new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-      );
-      plane.rotation.x = - Math.PI / 2;
-      plane.position.y = 0.03;
-      plane.receiveShadow = true;
-      scene.add(plane);
-
-      // Lights
-      var light = new THREE.HemisphereLight( 0x443333, 0x111122 );
-      scene.add( light );
-
-      var light = new THREE.SpotLight();
-      light.angle = Math.PI / 16;
-      light.penumbra = 0.5;
-      light.castShadow = true;
-      light.position.set( - 1, 1, 1 );
-      scene.add( light );
-
-      dracoLoader.load( 'models/bunny.drc', function ( geometry ) {
-
-        geometry.computeVertexNormals();
-
-        var material = new THREE.MeshStandardMaterial( { vertexColors: THREE.VertexColors } );
-        var mesh = new THREE.Mesh( geometry, material );
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        scene.add( mesh );
-
-      } );
-
-      // renderer
-      renderer = new THREE.WebGLRenderer( { antialias: true } );
-      renderer.setPixelRatio( window.devicePixelRatio );
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      renderer.gammaInput = true;
-      renderer.gammaOutput = true;
-      renderer.shadowMap.enabled = true;
-      container.appendChild( renderer.domElement );
-
-      window.addEventListener( 'resize', onWindowResize, false );
-
-    }
-
-    function onWindowResize() {
-
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-
-      renderer.setSize( window.innerWidth, window.innerHeight );
-
-    }
-
-    function animate() {
-
-      render();
-      requestAnimationFrame( animate );
-
-    }
-
-    function render() {
-
-      var timer = Date.now() * 0.0003;
-
-      camera.position.x = Math.sin( timer ) * 0.5;
-      camera.position.z = Math.cos( timer ) * 0.5;
-      camera.lookAt( new THREE.Vector3( 0, 0.1, 0 ) );
-
-      renderer.render( scene, camera );
-
-    }
+    <div class="spinner"></div>
+  </main>
+  <script type="text/x-handlebars-template" id="report-toggle-template">
+    <div class="report-toggle level-{{issues.maxSeverity}}">
+      <div class="report-toggle-text">
+        {{#if issues}}
+          {{#if issues.numErrors }}
+            {{issues.numErrors}} errors.
+          {{else if issues.numWarnings}}
+            {{issues.numWarnings}} warnings.
+          {{else if issues.numHints}}
+            {{issues.numHints}} hints.
+          {{else if issues.numInfos}}
+            {{issues.numInfos}} notes.
+          {{else}}
+            Model details
+          {{/if}}
+        {{else if reportError}}
+          Validation could not run: {{reportError}}.
+        {{else}}
+          Validation could not run.
+        {{/if}}
+      </div>
+      <div class="report-toggle-close" aria-label="Hide">&times;</div>
+    </div>
+  </script>
+  <script type="text/x-handlebars-template" id="report-template">
+    <!DOCTYPE html>
+    <title>glTF 2.0 validation report</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="{{location.protocol}}//{{location.host}}/style.css">
+    <style>
+      body { overflow-y: auto; }
+    </style>
+    <div class="report">
+      <h1>Validation report</h1>
+      <ul>
+        <li><b>Format:</b> glTF {{info.version}}</li>
+        {{#if generator}}
+          <li>
+            <b>Generator:</b> {{generator.name}}
+            {{#if generator.docsURL}}(<a href="{{generator.docsURL}}" target="_blank">docs</a>){{/if}}
+            {{#if generator.bugsURL}}(<a href="{{generator.bugsURL}}" target="_blank">bugs</a>){{/if}}
+          </li>
+        {{else}}
+          <li><b>Generator:</b> {{info.generator}}</li>
+        {{/if}}
+        {{#if info.extras}}
+          {{#if info.extras.title}}<li><b>Title:</b> {{info.extras.title}}</li>{{/if}}
+          {{#if info.extras.author}}<li><b>Author:</b> {{{info.extras.author}}}</li>{{/if}}
+          {{#if info.extras.license}}<li><b>License:</b> {{{info.extras.license}}}</li>{{/if}}
+          {{#if info.extras.source}}<li><b>Source:</b> {{{info.extras.source}}}</li>{{/if}}
+        {{/if}}
+        <li>
+          <b>Stats:</b>
+          <ul>
+            <li>{{info.animationsCount}} animations</li>
+            <li>{{info.materialsCount}} materials</li>
+            <li>{{info.meshesCount}} meshes</li>
+            <li>{{info.nodesCount}} nodes</li>
+            <li>{{info.primitivesCount}} primitives</li>
+            <li>{{info.texturesCount}} textures</li>
+          </ul>
+        </li>
+        <li>
+          <b>Extensions:</b> {{#unless info.extensionsUsed}}None{{/unless}}
+          {{#if info.extensionsUsed}}
+            <ul>
+            {{#each info.extensionsUsed}}
+              <li>{{this}}</li>
+            {{/each}}
+            </ul>
+            <p><i>
+              NOTE: Extensions above are present in the model, but may or may not be recognized by this
+              viewer. Any "UNSUPPORTED_EXTENSION" warnings below refer only to extensions that could not
+              be scanned by the validation suite, and may still have rendered correctly. See:
+              <a href="https://github.com/donmccurdy/three-gltf-viewer/issues/122" target="_blank">three-gltf-viewer#122</a>
+          {{/if}}
+        </li>
+      </ul>
+      <hr/>
+      <p>
+        Report generated by
+        <a href="https://github.com/KhronosGroup/glTF-Validator/">KhronosGroup/glTF-Validator</a>
+        {{validatorVersion}}.
+      </p>
+      {{#if issues.numErrors}}
+        {{> issuesTable messages=errors color="#f44336" title="Error"}}
+      {{/if}}
+      {{#if issues.numWarnings}}
+        {{> issuesTable messages=warnings color="#f9a825" title="Warning"}}
+      {{/if}}
+      {{#if issues.numHints}}
+        {{> issuesTable messages=hints color="#8bc34a" title="Hint"}}
+      {{/if}}
+      {{#if issues.numInfos}}
+        {{> issuesTable messages=infos color="#2196f3" title="Info"}}
+      {{/if}}
+    </div>
+  </script>
+  <script type="text/x-handlebars-template" id="report-table-partial">
+    <table class="report-table">
+      <thead>
+        <tr style="background: {{color}};">
+          <th>{{title}}</th>
+          <th>Message</th>
+          <th>Pointer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each messages}}
+        <tr>
+          <td><code>{{code}}</code></td>
+          <td>{{message}}</td>
+          <td><code>{{pointer}}</code></td>
+        </tr>
+        {{/each}}
+        {{#unless issues.messages}}
+        <tr><td colspan="3">No issues found.</td></tr>
+        {{/unless}}
+      </tbody>
+    </table>
   </script>
 </body>
-</html>
