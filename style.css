@@ -31,13 +31,6 @@ body {
   align-items: center;
 }
 
-#original-texture {
-  position: absolute;
-  opacity: 0;
-  top: 0px;
-  left: 0px;
-}
-
 .placeholder {
   width: 100%;
   max-width: 500px;
@@ -59,31 +52,19 @@ body {
   flex-shrink: 1;
   position: absolute;
   top: 0;
-  display: flex;
+  z-index: 0;
 }
 
-.col {
-  flex: 1;
-  width: 50%;
-}
-
-canvas {
-  width: 100%;
-}
-
-#viewer-canvas {
-  height: 100%;
-}
-
-
-#texture-view {
-  background: black;
-  pointer-events: none;
-  position: relative;
-}
-
-#texture-view img {
-  width: 100% !important;
+.axes {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    padding: 0px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 10;
+    pointer-events: none;
 }
 
 /******************************************************************************
@@ -172,12 +153,13 @@ header h1 + .separator {
   top: 0;
   right: 0;
   bottom: 0;
-  overflow: auto;
   pointer-events: none;
 }
 
 .gui-wrap > .main {
   pointer-events: all;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .dg li.gui-stats:not(.folder) {
@@ -358,27 +340,4 @@ header h1 + .separator {
     transform: scale(1.0);
     opacity: 0;
   }
-}
-
-
-.item-tool {
-  position: relative;
-}
-
-.tools-gui {
-  position: absolute;
-  top: 39px;
-  left: 50%;
-  margin-left: -150px;
-  z-index: 100;
-  display: none;
-  padding-top: 8px;
-}
-
-.header .item-tool:hover > .tools-gui {
-  display: block;
-}
-
-.tools-gui:hover {
-  display: block;
 }
