@@ -72380,6 +72380,13 @@ module.exports = class Viewer {
         material.needsUpdate = true;
       });
     });
+	
+	//Geometry conrols. 
+	
+	const geometryFolder = gui.addFolder('Geometry');
+	const geometryCheck = geometryFolder.add(this.state, 'compress geometry');
+	geometryCheck.onChange(() => this.updateEnvironment());
+	console.log('sukure')
 
 
     var toggleEl = (el, tag, on) => {
@@ -72397,10 +72404,7 @@ module.exports = class Viewer {
     }
 
 	
-	this.geometryFolder = gui.addFolder('Geometry');
-	this.geometryDropdown = this.geometryFolder.add(this.state, 'geometryDropdown').name("draco compress").listen().onChange((c) => {this.toggleCompression(c); this.updateGeometry(this.currentMap, this.state.quality, this.state.resolution, this.state.imageFormat, c);});
-
-	console.log('sukure')
+	
 	
     // Material selection
     this.materialFolder = gui.addFolder('Materials');
