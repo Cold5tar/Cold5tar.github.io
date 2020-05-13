@@ -72396,6 +72396,9 @@ module.exports = class Viewer {
       toggleEl(this.quality, '', shouldCompress);
     }
 
+	
+	this.geometryFolder = gui.addFolder('Geometry');
+	this.geometryDropDown = this.geometryFolder.add(this.state, 'compress geometry').name("draco compress").listen().onChange((c) => {this.toggleCompression(c); this.updateGeometry(this.currentMap, this.state.quality, this.state.resolution, this.state.imageFormat, c);});
 
     // Material selection
     this.materialFolder = gui.addFolder('Materials');
@@ -72465,6 +72468,8 @@ module.exports = class Viewer {
     this.newFilesizeGui = this.exportFolder.add(this.state, 'newFilesize').name("Approx new size").listen();
     this.newFilesizeGui.domElement.style.pointerEvents = "none";
     this.newFilesizeGui.domElement.style.opacity = 1;
+	
+	
 
     this.exportFolder.add(exportBtn,'Export');
     this.exportFolder.domElement.addEventListener('click', () => {
