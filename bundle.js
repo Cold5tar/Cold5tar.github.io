@@ -72383,7 +72383,7 @@ module.exports = class Viewer {
 	//Geometry conrols. 
 	this.state.Draco = false;
 	const geometryFolder = gui.addFolder('Geometry');
-	const geometryCtrl = dispFolder.add(this.state, 'Draco');
+	const geometryCtrl = geometryFolder.add(this.state, 'Draco');
 
 
     var toggleEl = (el, tag, on) => {
