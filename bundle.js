@@ -72386,7 +72386,7 @@ module.exports = class Viewer {
 	const geometryFolder = gui.addFolder('Geometry');
 	const geometryCheck = geometryFolder.add(this.state, 'compress geometry');
 	geometryCheck.onChange(() => this.updateEnvironment());
-	console.log('sukure')
+	console.log('sukure');
 
 
     var toggleEl = (el, tag, on) => {
