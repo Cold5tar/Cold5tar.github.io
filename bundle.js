@@ -72383,7 +72383,7 @@ module.exports = class Viewer {
 	//Geometry conrols. 
 	this.state.Draco = false;
 	const geometryFolder = gui.addFolder('Geometry');
-	const geometryCtrl = geometryFolder.add(this.state, 'Draco');
+	geometryFolder.add(this.state, 'wireframe');
 
 	console.log('pavyko');
 
