@@ -71585,7 +71585,6 @@ module.exports = class Viewer {
     this.mixer = null;
     this.clips = [];
     this.gui = null;
-
     this.originalTextureFilesize = 0;
     this.originalTotalTextureFilesize = 0;
     this.originalTextureFilesizes = {};
@@ -71608,6 +71607,7 @@ module.exports = class Viewer {
       texture: null,
       quality: 1,
       compressTexture: false,
+	  compressGeometry: false,
       imageFormat: null,
       resolution: 2048,
       originalTextureFilesize: "",
@@ -72398,8 +72398,10 @@ module.exports = class Viewer {
 
 	
 	this.geometryFolder = gui.addFolder('Geometry');
-	this.geometryDropDown = this.geometryFolder.add(this.state, 'compress geometry').name("draco compress").listen().onChange((c) => {this.toggleCompression(c); this.updateGeometry(this.currentMap, this.state.quality, this.state.resolution, this.state.imageFormat, c);});
+	this.geometryDropdown = this.geometryFolder.add(this.state, 'geometryDropdown').name("draco compress").listen().onChange((c) => {this.toggleCompression(c); this.updateGeometry(this.currentMap, this.state.quality, this.state.resolution, this.state.imageFormat, c);});
 
+	console.log('sukure')
+	
     // Material selection
     this.materialFolder = gui.addFolder('Materials');
     this.materialDropdown = this.materialFolder.add(this.state, 'material', {}).onChange((m) => {this.selectMaterial(m)});
