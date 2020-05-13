@@ -72356,7 +72356,7 @@ module.exports = class Viewer {
     // Display controls.
     const dispFolder = gui.addFolder('Display');
     const envBackgroundCtrl = dispFolder.add(this.state, 'background');
-    envBackgroundCtrl.onChange(() => this.updateEnvironment());
+    //envBackgroundCtrl.onChange(() => this.updateEnvironment());
     const wireframeCtrl = dispFolder.add(this.state, 'wireframe');
     wireframeCtrl.onChange(() => this.updateDisplay());
     const skeletonCtrl = dispFolder.add(this.state, 'skeleton');
@@ -72385,6 +72385,7 @@ module.exports = class Viewer {
 	const geometryFolder = gui.addFolder('Geometry');
 	const geometryCtrl = geometryFolder.add(this.state, 'Draco');
 
+	console.log('pavyko');
 
     var toggleEl = (el, tag, on) => {
       var opacity = on ? 1 : 0.4;
