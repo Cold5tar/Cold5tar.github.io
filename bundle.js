@@ -71607,6 +71607,7 @@ module.exports = class Viewer {
       texture: null,
       quality: 1,
       compressTexture: false,
+	  Draco: false;
       imageFormat: null,
       resolution: 2048,
       originalTextureFilesize: "",
@@ -72380,8 +72381,9 @@ module.exports = class Viewer {
     });
 	
 	//Geometry conrols. 
-	
+	this.state.Draco = false;
 	const geometryFolder = gui.addFolder('Geometry');
+	const geometryCtrl = dispFolder.add(this.state, 'Draco');
 
 
     var toggleEl = (el, tag, on) => {
