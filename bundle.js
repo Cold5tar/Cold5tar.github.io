@@ -71607,7 +71607,6 @@ module.exports = class Viewer {
       texture: null,
       quality: 1,
       compressTexture: false,
-	  geometrycompress: false,
       imageFormat: null,
       resolution: 2048,
       originalTextureFilesize: "",
@@ -71702,13 +71701,6 @@ module.exports = class Viewer {
       colors: [this.state.bgColor1, this.state.bgColor2]
     });
 	
-	this.geometrycompress = createVignetteBackground({
-      aspect: this.defaultCamera.aspect,
-      grainScale: IS_IOS ? 0 : 0.001, // mattdesl/three-vignette-background#1
-      colors: [this.state.bgColor1, this.state.bgColor2]
-    });
-
-
     this.cameraCtrl = null;
     this.cameraFolder = null;
     this.animFolder = null;
@@ -72390,9 +72382,6 @@ module.exports = class Viewer {
 	//Geometry conrols. 
 	
 	const geometryFolder = gui.addFolder('Geometry');
-	const geometryCheck = geometryFolder.add(this.state, 'geometrycompress');
-	geometryCheck.onChange(() => this.updateEnvironment());
-	console.log('sukure');
 
 
     var toggleEl = (el, tag, on) => {
