@@ -71607,7 +71607,7 @@ module.exports = class Viewer {
       texture: null,
       quality: 1,
       compressTexture: false,
-	  compressGeometry: false,
+	  geometrycompress: false,
       imageFormat: null,
       resolution: 2048,
       originalTextureFilesize: "",
