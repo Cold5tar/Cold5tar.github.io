@@ -71701,6 +71701,12 @@ module.exports = class Viewer {
       grainScale: IS_IOS ? 0 : 0.001, // mattdesl/three-vignette-background#1
       colors: [this.state.bgColor1, this.state.bgColor2]
     });
+	
+	this.geometrycompress = createVignetteBackground({
+      aspect: this.defaultCamera.aspect,
+      grainScale: IS_IOS ? 0 : 0.001, // mattdesl/three-vignette-background#1
+      colors: [this.state.bgColor1, this.state.bgColor2]
+    });
 
 
     this.cameraCtrl = null;
@@ -72384,7 +72390,7 @@ module.exports = class Viewer {
 	//Geometry conrols. 
 	
 	const geometryFolder = gui.addFolder('Geometry');
-	const geometryCheck = geometryFolder.add(this.state, 'compress geometry');
+	const geometryCheck = geometryFolder.add(this.state, 'geometrycompress');
 	geometryCheck.onChange(() => this.updateEnvironment());
 	console.log('sukure');
 
