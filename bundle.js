@@ -72388,6 +72388,12 @@ module.exports = class Viewer {
 	
 	//Geometry compression conrols. 
 	this.state.Draco = false;
+	this.state.compressionLevel = 7;
+	this.state.positionC = 11;
+	this.state.texcoordC = 12;
+	this.state.normalC = 8;
+	this.state.colorC = 8;
+	this.state.genericC = 8;
 	const geometryFolder = gui.addFolder('Geometry');
 	this.compressionLevel = this.geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0).listen();
 	this.positionC = this.geometryFolder.add(this.state, 'position', 0, 32, 1).min(0).listen();
