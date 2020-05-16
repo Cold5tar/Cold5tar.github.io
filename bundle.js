@@ -71606,6 +71606,12 @@ module.exports = class Viewer {
       material: null,
       texture: null,
       quality: 1,
+	  positionC: 11,
+	  texcoordC: 12,
+	  compressionLevel: 7,
+	  colorC: 8,
+	  normalC: 8,
+	  genericC: 8,
       compressTexture: false,
 	  Draco: false,
       imageFormat: null,
@@ -72380,10 +72386,18 @@ module.exports = class Viewer {
       });
     });
 	
-	//Geometry conrols. 
+	//Geometry compression conrols. 
 	this.state.Draco = false;
 	const geometryFolder = gui.addFolder('Geometry');
-	geometryFolder.add(this.state, 'Draco');
+	this.compressionLevel = this.geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0).listen();
+	this.positionC = this.geometryFolder.add(this.state, 'position', 0, 32, 1).min(0).listen();
+	this.texcoordC = this.geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0).listen();
+	this.normalC = this.geometryFolder.add(this.state, 'normal', 0, 32, 1).min(0).listen();
+	this.colorC = this.geometryFolder.add(this.state, 'color', 0, 32, 1).min(0).listen();
+	this.genericC = this.geometryFolder.add(this.state, 'generic', 0, 32, 1).min(0).listen();
+
+
+
 
 	console.log('pavyko');
 
