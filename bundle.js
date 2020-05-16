@@ -72422,13 +72422,6 @@ module.exports = class Viewer {
       toggleEl(this.resolutionDropdown, 'select', shouldCompress);
       toggleEl(this.formatDropdown, 'select', shouldCompress);
       toggleEl(this.quality, '', shouldCompress);
-	  toggleEl(this.geometryCompress, '', shouldCompress);
-	  toggleEl(this.compressionLevel, '', shouldCompress);
-	  toggleEl(this.position, '', shouldCompress);
-	  toggleEl(this.texcoord, '', shouldCompress);
-	  toggleEl(this.color, '', shouldCompress);
-	  toggleEl(this.quality, '', shouldCompress);
-	  toggleEl(this.generic, '', shouldCompress);
     }
 
 	
