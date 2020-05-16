@@ -71606,12 +71606,12 @@ module.exports = class Viewer {
       material: null,
       texture: null,
       quality: 1,
-	  positionC: 11,
-	  texcoordC: 12,
+	  position: 11,
+	  texcoord: 12,
 	  compressionLevel: 7,
-	  colorC: 8,
-	  normalC: 8,
-	  genericC: 8,
+	  color: 8,
+	  normal: 8,
+	  generic: 8,
       compressTexture: false,
 	  Draco: false,
       imageFormat: null,
@@ -72389,18 +72389,18 @@ module.exports = class Viewer {
 	//Geometry compression conrols. 
 	this.state.Draco = false;
 	this.state.compressionLevel = 7;
-	this.state.positionC = 11;
-	this.state.texcoordC = 12;
-	this.state.normalC = 8;
-	this.state.colorC = 8;
-	this.state.genericC = 8;
+	this.state.position = 11;
+	this.state.texcoord = 12;
+	this.state.normal = 8;
+	this.state.color = 8;
+	this.state.generic = 8;
 	const geometryFolder = gui.addFolder('Geometry');
-	const compressionLevel = geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0).listen();
-	const positionC = geometryFolder.add(this.state, 'position', 0, 32, 1).min(0).listen();
-	const texcoordC = geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0).listen();
-	const normalC = geometryFolder.add(this.state, 'normal', 0, 32, 1).min(0).listen();
-	const colorC = geometryFolder.add(this.state, 'color', 0, 32, 1).min(0).listen();
-	const genericC = geometryFolder.add(this.state, 'generic', 0, 32, 1).min(0).listen();
+	const compressionLevel = geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0);
+	const position = geometryFolder.add(this.state, 'position', 0, 32, 1).min(0);
+	const texcoord = geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0);
+	const normal = geometryFolder.add(this.state, 'normal', 0, 32, 1).min(0);
+	const color = geometryFolder.add(this.state, 'color', 0, 32, 1).min(0);
+	const generic = geometryFolder.add(this.state, 'generic', 0, 32, 1).min(0);
 
 
 
