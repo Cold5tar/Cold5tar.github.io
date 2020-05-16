@@ -72395,12 +72395,12 @@ module.exports = class Viewer {
 	this.state.colorC = 8;
 	this.state.genericC = 8;
 	const geometryFolder = gui.addFolder('Geometry');
-	compressionLevel = geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0).listen();
-	positionC = geometryFolder.add(this.state, 'position', 0, 32, 1).min(0).listen();
-	texcoordC = geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0).listen();
-	normalC = geometryFolder.add(this.state, 'normal', 0, 32, 1).min(0).listen();
-	colorC = geometryFolder.add(this.state, 'color', 0, 32, 1).min(0).listen();
-	genericC = geometryFolder.add(this.state, 'generic', 0, 32, 1).min(0).listen();
+	const compressionLevel = geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0).listen();
+	const positionC = geometryFolder.add(this.state, 'position', 0, 32, 1).min(0).listen();
+	const texcoordC = geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0).listen();
+	const normalC = geometryFolder.add(this.state, 'normal', 0, 32, 1).min(0).listen();
+	const colorC = geometryFolder.add(this.state, 'color', 0, 32, 1).min(0).listen();
+	const genericC = geometryFolder.add(this.state, 'generic', 0, 32, 1).min(0).listen();
 
 
 
