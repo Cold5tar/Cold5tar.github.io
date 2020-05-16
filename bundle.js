@@ -71615,6 +71615,7 @@ module.exports = class Viewer {
       compressTexture: false,
 	  Draco: false,
       imageFormat: null,
+	  compress: false,
       resolution: 2048,
       originalTextureFilesize: "",
       newTextureFilesize: "",
@@ -72394,7 +72395,9 @@ module.exports = class Viewer {
 	this.state.normal = 8;
 	this.state.color = 8;
 	this.state.generic = 8;
+	this.state.geometryCompress = false;
 	const geometryFolder = gui.addFolder('Geometry');
+	const geometryCompress = geometryFolder.add(this.state, 'compress');
 	const compressionLevel = geometryFolder.add(this.state, 'compressionLevel', 0, 10, 1).min(0);
 	const position = geometryFolder.add(this.state, 'position', 0, 32, 1).min(0);
 	const texcoord = geometryFolder.add(this.state, 'texcoord', 0, 32, 1).min(0);
